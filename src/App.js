@@ -34,7 +34,7 @@ function App() {
     setError(null);
 
     try {
-      const response = await axios.post('http://gj03.khdxs7.site:20401/api/recognize', {
+      const response = await axios.post('http://gj03.khdxs7.site:20601/api/recognize', {
         image: selectedImage,
       });
       setResultImage(response.data.base64);
