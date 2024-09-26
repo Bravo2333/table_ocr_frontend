@@ -38,7 +38,12 @@ function App() {
         image: selectedImage,
       });
       setResultImage(response.data.base64);
-      setRecognitionResults(response.data.recognition_results);  // 设置识别结果
+      // 假设后端返回的 recognition_results 中包含每个项的 image 字段
+      const modifiedResults = response.data.recognition_results.map(result => ({
+        ...result,
+        image: result.image // 这里可以替换为具体的每个项的 image 字段
+      }));
+      setRecognitionResults(modifiedResults);  // 设置识别结果
     } catch (err) {
       setError('识别失败，请稍后再试');
       console.error(err);
@@ -135,6 +140,7 @@ function App() {
                     <TableCell>Index (选中)</TableCell>
                     <TableCell>Polygon (四个坐标点)</TableCell>
                     <TableCell>Texts</TableCell>
+                    <TableCell>Image</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -157,6 +163,15 @@ function App() {
                       </TableCell>
                       <TableCell>
                         {Array.isArray(result.texts) ? result.texts.join(', ') : result.texts}
+                      </TableCell>
+                      <TableCell>
+                        {result.image && (
+                          <img
+                            src={result.image}
+                            alt={`Result ${result.index}`}
+                            style={{ maxWidth: '100px', height: 'auto', borderRadius: '4px' }}
+                          />
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
