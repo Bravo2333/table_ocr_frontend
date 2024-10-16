@@ -53,7 +53,7 @@ function DataAnnotation() {
 
   const handleSelectDataset = (name) => {
     setSelectedDataset(name);
-    axios.get(`/datasets/${name}/annotations`) // 获取数据集标注信息的 API
+    axios.get(`/dataset/annotations/${name}`) // 获取数据集标注信息的 API
       .then((response) => {
         setDataList(response.data); // 设置标注数据
       })
