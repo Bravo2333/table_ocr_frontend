@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Typography, TextField, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from 'axios';
-
+import DatasetPreview from './DataPreview';
 const backendUrl = process.env.REACT_APP_API_URL;
 
 function DataAnnotation() {
@@ -53,13 +53,6 @@ function DataAnnotation() {
 
   const handleSelectDataset = (name) => {
     setSelectedDataset(name);
-    axios.get(`/dataset/annotations/${name}`) // 获取数据集标注信息的 API
-      .then((response) => {
-        setDataList(response.data); // 设置标注数据
-      })
-      .catch((error) => {
-        console.error('获取标注信息失败:', error);
-      });
   };
 
   const handleImageUpload = (e) => {
@@ -174,7 +167,7 @@ function DataAnnotation() {
       </Box>
 
       </Box>
-
+      <DatasetPreview datasetName={selectedDataset} />
       {/* 数据标注部分 */}
       {selectedDataset && (
         <>
